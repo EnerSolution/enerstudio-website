@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EnerStudio.io — AI Video Production Platform</title>
+<meta name="description" content="Create professional cinematic AI videos in minutes. Script, voiceover, and video generation — all in one platform. Trusted by businesses globally.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#0a0a0f;
+  --deep:#0e0e1a;
+  --navy:#1e1b4b;
+  --card:#16161f;
+  --border:rgba(255,255,255,0.08);
+  --primary:#6366f1;
+  --primary-dark:#4f46e5;
+  --accent:#a78bfa;
+  --green:#34d399;
+  --gold:#fbbf24;
+  --red:#f87171;
+  --white:#f1f5f9;
+  --grey:#94a3b8;
+  --muted:#475569;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#6366f1,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;}
+.nav-logo span{-webkit-text-fill-color:var(--green);color:var(--green);}
+.nav-links{display:flex;align-items:center;gap:2rem;}
+.nav-links a{font-size:14px;color:var(--grey);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:8px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.nav-cta:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 80px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(99,102,241,0.15),transparent),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(167,139,250,0.08),transparent);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--accent);margin-bottom:2rem;letter-spacing:0.5px;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(40px,7vw,84px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:1.5rem;max-width:900px;}
+.hero h1 .grad{background:linear-gradient(135deg,#6366f1,#a78bfa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:clamp(16px,2vw,20px);color:var(--grey);max-width:600px;line-height:1.7;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:12px;padding:14px 32px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
+.btn-primary:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 12px 30px rgba(99,102,241,0.35);}
+.btn-secondary{background:transparent;color:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 32px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--primary);color:var(--accent);}
+.hero-note{font-size:12px;color:var(--muted);}
+.hero-note span{color:var(--green);}
+
+/* PIPELINE ANIMATION */
+.pipeline-visual{width:100%;max-width:800px;margin:0 auto;background:rgba(22,22,31,0.8);border:1px solid var(--border);border-radius:20px;padding:2rem;backdrop-filter:blur(10px);}
+.pipeline-steps{display:flex;align-items:center;justify-content:space-between;gap:0;}
+.pipe-step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;}
+.pipe-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid var(--border);background:var(--card);position:relative;transition:all 0.3s;}
+.pipe-icon.active{background:rgba(99,102,241,0.15);border-color:var(--primary);box-shadow:0 0 20px rgba(99,102,241,0.3);}
+.pipe-icon.done{background:rgba(52,211,153,0.1);border-color:var(--green);}
+.pipe-label{font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap;}
+.pipe-label.active{color:var(--accent);}
+.pipe-label.done{color:var(--green);}
+.pipe-arrow{color:var(--muted);font-size:16px;flex-shrink:0;margin:0 -4px;}
+.pipe-arrow.done{color:var(--green);}
+.pipeline-status{text-align:center;margin-top:1.25rem;font-size:13px;color:var(--grey);min-height:20px;}
+.pipeline-status span{color:var(--accent);font-weight:500;}
+
+/* STATS BAR */
+.stats-bar{background:var(--navy);border-top:1px solid rgba(99,102,241,0.2);border-bottom:1px solid rgba(99,102,241,0.2);padding:1.5rem 2rem;}
+.stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:13px;color:var(--grey);margin-top:4px;}
+
+/* SECTIONS */
+section{padding:100px 2rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-badge{display:inline-block;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);border-radius:20px;padding:4px 14px;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:1rem;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.1;margin-bottom:1rem;letter-spacing:-1px;}
+.section-sub{font-size:17px;color:var(--grey);max-width:600px;line-height:1.7;}
+
+/* VS TABLE */
+.vs-section{background:var(--deep);}
+.vs-table{width:100%;border-collapse:collapse;margin-top:3rem;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--border);}
+.vs-table th{padding:16px 20px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);background:rgba(255,255,255,0.03);text-align:left;}
+.vs-table th:last-child{color:var(--accent);background:rgba(99,102,241,0.08);}
+.vs-table td{padding:14px 20px;font-size:14px;border-top:1px solid var(--border);}
+.vs-table td:last-child{background:rgba(99,102,241,0.04);font-weight:600;color:var(--green);}
+.vs-table tr:hover td{background:rgba(255,255,255,0.02);}
+.vs-table tr:hover td:last-child{background:rgba(99,102,241,0.08);}
+.cross{color:var(--red);}
+.check{color:var(--green);}
+.vs-total{background:rgba(99,102,241,0.1) !important;}
+.vs-total td{font-weight:700 !important;font-size:15px !important;border-top:2px solid rgba(99,102,241,0.3) !important;}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem;}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all 0.2s;}
+.feature-card:hover{border-color:rgba(99,102,241,0.4);transform:translateY(-3px);}
+.feature-icon{font-size:32px;margin-bottom:1rem;}
+.feature-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;}
+.feature-desc{font-size:14px;color:var(--grey);line-height:1.7;}
+.feature-badge{display:inline-block;margin-top:10px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;}
+.badge-live{background:rgba(52,211,153,0.1);color:var(--green);border:1px solid rgba(52,211,153,0.25);}
+.badge-soon{background:rgba(251,191,36,0.1);color:var(--gold);border:1px solid rgba(251,191,36,0.2);}
+
+/* HOW IT WORKS */
+.how-section{background:var(--deep);}
+.steps-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:3rem;position:relative;}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;position:relative;}
+.step-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:12px;}
+.step-icon{font-size:28px;margin-bottom:12px;}
+.step-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
+.step-desc{font-size:12px;color:var(--grey);line-height:1.6;}
+.step-arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:18px;z-index:1;}
+
+/* PRICING */
+.pricing-toggle{display:flex;align-items:center;justify-content:center;gap:12px;margin:2rem 0;}
+.toggle-label{font-size:14px;color:var(--grey);}
+.toggle-label.active{color:var(--white);font-weight:600;}
+.toggle-switch{width:52px;height:28px;background:var(--primary);border-radius:14px;position:relative;cursor:pointer;transition:background 0.2s;}
+.toggle-switch::after{content:'';position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;top:3px;left:3px;transition:left 0.2s;}
+.toggle-switch.annual::after{left:27px;}
+.save-badge{background:rgba(52,211,153,0.15);color:var(--green);border:1px solid rgba(52,211,153,0.3);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:1.5rem;}
+.plan-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:2rem;position:relative;transition:all 0.2s;}
+.plan-card:hover{transform:translateY(-4px);}
+.plan-card.featured{border-color:var(--primary);background:rgba(99,102,241,0.06);}
+.plan-popular{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-size:11px;font-weight:700;padding:4px 16px;border-radius:20px;white-space:nowrap;}
+.plan-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;}
+.plan-desc{font-size:13px;color:var(--grey);margin-bottom:1.5rem;}
+.plan-price{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:1;margin-bottom:4px;}
+.plan-price sup{font-size:20px;font-weight:600;vertical-align:top;margin-top:8px;display:inline-block;}
+.plan-price span{font-size:14px;font-weight:400;color:var(--grey);}
+.plan-annual{font-size:12px;color:var(--green);margin-bottom:1.5rem;min-height:18px;}
+.plan-divider{height:1px;background:var(--border);margin:1.25rem 0;}
+.plan-features{display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;}
+.plan-feature{font-size:13px;color:var(--grey);display:flex;align-items:center;gap:8px;}
+.plan-feature::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0;}
+.plan-feature.extra{color:var(--muted);}
+.plan-feature.extra::before{content:"→";color:var(--muted);}
+.plan-btn{width:100%;padding:12px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;text-align:center;}
+.plan-btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--white);}
+.plan-btn-outline:hover{border-color:var(--primary);color:var(--accent);}
+.plan-btn-filled{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:#fff;}
+.plan-btn-filled:hover{opacity:0.9;box-shadow:0 8px 20px rgba(99,102,241,0.3);}
+.plan-trial{text-align:center;font-size:12px;color:var(--muted);margin-top:10px;}
+.plan-trial span{color:var(--green);}
+
+/* FREE TRIAL HIGHLIGHT */
+.trial-bar{background:linear-gradient(135deg,var(--navy),rgba(99,102,241,0.2));border:1px solid rgba(99,102,241,0.3);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem;}
+.trial-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:8px;}
+.trial-sub{font-size:15px;color:var(--grey);margin-bottom:1.25rem;}
+.trial-features{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.trial-feat{font-size:13px;color:var(--grey);display:flex;align-items:center;gap:6px;}
+.trial-feat::before{content:"✓";color:var(--green);font-weight:700;}
+
+/* ABOUT */
+.about-section{background:var(--deep);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:3rem;}
+.about-text p{font-size:16px;color:var(--grey);line-height:1.8;margin-bottom:1rem;}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:2rem;}
+.about-value{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;}
+.about-value-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px;}
+.about-value-desc{font-size:13px;color:var(--grey);line-height:1.6;}
+.about-visual{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;text-align:center;}
+.about-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:1.5rem;}
+.about-stat{background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:10px;padding:1.25rem;}
+.about-stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent);}
+.about-stat-label{font-size:12px;color:var(--muted);margin-top:3px;}
+
+/* PILOT */
+.pilot-section{background:linear-gradient(135deg,var(--navy),#0f0f2e);}
+.pilot-inner{max-width:700px;margin:0 auto;text-align:center;}
+.pilot-form{background:rgba(22,22,31,0.8);border:1px solid rgba(99,102,241,0.2);border-radius:20px;padding:2.5rem;margin-top:2rem;backdrop-filter:blur(10px);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.form-input{width:100%;background:rgba(10,10,15,0.8);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--white);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:var(--primary);}
+.form-input::placeholder{color:var(--muted);}
+.form-select{width:100%;background:rgba(10,10,15,0.8);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--white);outline:none;margin-bottom:12px;}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;border-radius:10px;padding:14px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.2s;margin-top:8px;}
+.form-submit:hover{opacity:0.9;transform:translateY(-1px);box-shadow:0 10px 25px rgba(99,102,241,0.3);}
+#formResult{display:none;margin-top:12px;padding:12px;border-radius:8px;font-size:14px;text-align:center;}
+
+/* FAQ */
+.faq-grid{display:flex;flex-direction:column;gap:10px;margin-top:3rem;max-width:780px;}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.faq-q{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:15px;font-weight:500;}
+.faq-q:hover{background:rgba(255,255,255,0.02);}
+.faq-q span{color:var(--accent);font-size:18px;transition:transform 0.2s;}
+.faq-a{display:none;padding:0 20px 16px;font-size:14px;color:var(--grey);line-height:1.8;}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:60px 2rem 30px;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.footer-brand{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;background:linear-gradient(135deg,#6366f1,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem;}
+.footer-brand span{-webkit-text-fill-color:var(--green);color:var(--green);}
+.footer-desc{font-size:14px;color:var(--muted);line-height:1.7;max-width:280px;}
+.footer-col-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:1rem;}
+.footer-col a{display:block;font-size:14px;color:var(--grey);text-decoration:none;margin-bottom:8px;transition:color 0.2s;}
+.footer-col a:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.footer-copy{font-size:13px;color:var(--muted);}
+.footer-legal{display:flex;gap:1.5rem;}
+.footer-legal a{font-size:13px;color:var(--muted);text-decoration:none;}
+.footer-legal a:hover{color:var(--grey);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hero h1{font-size:36px;letter-spacing:-1px;}
+  .pipeline-steps{flex-wrap:wrap;gap:12px;}
+  .pipe-arrow{display:none;}
+  .stats-inner{grid-template-columns:repeat(2,1fr);gap:1rem;}
+  .features-grid{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:repeat(2,1fr);}
+  .step-arrow{display:none;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center;}
+  section{padding:60px 1.25rem;}
+}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">EnerStudio<span>.</span>io</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+    <a href="#pilot">Pilot Program</a>
+  </div>
+  <a href="#pilot" class="nav-cta">Start Free Trial →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><div class="badge-dot"></div>Now in Pilot — Limited Access Available</div>
+  <h1>Professional AI Videos.<br><span class="grad">Created in Minutes.</span></h1>
+  <p class="hero-sub">Describe your video. EnerStudio writes the script, generates cinematic scenes, adds professional voiceover, and delivers a finished video — automatically.</p>
+  <div class="hero-actions">
+    <a href="#pilot" class="btn-primary">⚡ Start Free — Get 1 Video Free</a>
+    <a href="#how" class="btn-secondary">See How It Works</a>
+  </div>
+  <p class="hero-note"><span>✓</span> No credit card to browse &nbsp;·&nbsp; <span>✓</span> 1 free video after signup &nbsp;·&nbsp; <span>✓</span> Cancel anytime</p>
+
+  <!-- PIPELINE ANIMATION -->
+  <div class="pipeline-visual" style="margin-top:3rem;">
+    <div class="pipeline-steps">
+      <div class="pipe-step">
+        <div class="pipe-icon done" id="pi0">✍️</div>
+        <div class="pipe-label done">Describe</div>
+      </div>
+      <div class="pipe-arrow done">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon active" id="pi1">📄</div>
+        <div class="pipe-label active">Script</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" id="pi2">🖼️</div>
+        <div class="pipe-label">Scenes</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" id="pi3">🎬</div>
+        <div class="pipe-label">Video</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" id="pi4">🎙️</div>
+        <div class="pipe-label">Voice</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <div class="pipe-icon" id="pi5">⬇️</div>
+        <div class="pipe-label">Download</div>
+      </div>
+    </div>
+    <div class="pipeline-status" id="pipeStatus">Writing your professional script with <span>AI</span>...</div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-num">5+</div><div class="stat-label">AI Video Types</div></div>
+    <div><div class="stat-num">40+</div><div class="stat-label">Countries Supported</div></div>
+    <div><div class="stat-num">2,000+</div><div class="stat-label">Professional Voices</div></div>
+    <div><div class="stat-num">60s</div><div class="stat-label">Average Setup Time</div></div>
+  </div>
+</div>
+
+<!-- VS SECTION -->
+<section class="vs-section" id="value">
+  <div class="section-inner fade-up">
+    <div class="section-badge">Why EnerStudio</div>
+    <h2 class="section-title">Everything you need.<br>One platform. One price.</h2>
+    <p class="section-sub">Building a professional video production stack by subscribing to tools separately costs over 5× more — and still requires you to connect everything manually.</p>
+
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th>What You Need</th>
+          <th>If Purchased Separately</th>
+          <th>EnerStudio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>AI Script Writing</td><td>$20/month</td><td class="check">✓ Included</td></tr>
+        <tr><td>Professional AI Voiceover</td><td>$22/month</td><td class="check">✓ Included</td></tr>
+        <tr><td>Cinematic Video Generation</td><td>$35/month</td><td class="check">✓ Included</td></tr>
+        <tr><td>AI Avatar Presenter</td><td>$29/month</td><td class="check">✓ Included</td></tr>
+        <tr><td>Brand Logo Watermarking</td><td>$15/month</td><td class="check">✓ Included</td></tr>
+        <tr><td>Video Library & Management</td><td>$10/month</td><td class="check">✓ Included</td></tr>
+        <tr class="vs-total"><td><strong>Total Monthly Cost</strong></td><td><strong style="color:var(--red)">$131/month</strong></td><td><strong>From $49/month</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner fade-up">
+    <div class="section-badge">Platform Features</div>
+    <h2 class="section-title">Built for results.<br>Not for complexity.</h2>
+    <p class="section-sub">Every feature is designed to get you from idea to finished video faster than any other platform.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎬</div>
+        <div class="feature-title">Cinematic AI Video</div>
+        <div class="feature-desc">Real AI-generated cinematic scenes — drone shots, close-ups, establishing shots. Not stock footage. Original video created from your description.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎤</div>
+        <div class="feature-title">AI Avatar Presenter</div>
+        <div class="feature-desc">Professional AI presenter delivers your message. Choose from 1,200+ avatars and 2,000+ voices in 29 languages. Perfect for explainer and training videos.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✍️</div>
+        <div class="feature-title">AI Script Writing</div>
+        <div class="feature-desc">Describe your video in plain language. The platform writes a conversion-optimized script with perfect timing for your selected video duration.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <div class="feature-title">Professional Voiceover</div>
+        <div class="feature-desc">Natural-sounding AI voiceover in any language. Preview voices before choosing. Auto-synced to your video duration — never cuts off.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <div class="feature-title">Whiteboard Animation</div>
+        <div class="feature-desc">Hand-drawn style explainer videos that build step by step. Ideal for training, education, and product walkthroughs.</div>
+        <div class="feature-badge badge-soon">Coming Soon</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <div class="feature-title">Cartoon Animation</div>
+        <div class="feature-desc">2D animated characters and scenes. Make your message memorable with professional animation without hiring an animator.</div>
+        <div class="feature-badge badge-soon">Coming Soon</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <div class="feature-title">Brand Watermarking</div>
+        <div class="feature-desc">Upload your logo once per brand. It appears automatically on every video you produce — protecting your content and reinforcing your brand identity.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📸</div>
+        <div class="feature-title">Custom Scene Photos</div>
+        <div class="feature-desc">Not happy with the AI-generated scene? Upload your own photos for any scene. Add custom text overlays with full control over size, color, and position.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎬</div>
+        <div class="feature-title">Video Library</div>
+        <div class="feature-desc">Every video you produce is saved automatically. Download, organize, and manage your entire video library from one dashboard.</div>
+        <div class="feature-badge badge-live">● Live Now</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-inner fade-up">
+    <div class="section-badge">How It Works</div>
+    <h2 class="section-title">From idea to finished video<br>in 5 simple steps.</h2>
+    <p class="section-sub">No video editing skills required. No complex software. Just describe what you want and the platform handles everything.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">STEP 01</div>
+        <div class="step-icon">✍️</div>
+        <div class="step-title">Describe Your Video</div>
+        <div class="step-desc">Tell the platform what your video is about. Your brand, your audience, your message — in plain language.</div>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 02</div>
+        <div class="step-icon">📄</div>
+        <div class="step-title">Review AI Script</div>
+        <div class="step-desc">The AI writes a professional voiceover script. Read it, edit it freely, then approve when you are happy.</div>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 03</div>
+        <div class="step-icon">🖼️</div>
+        <div class="step-title">Approve Scene Images</div>
+        <div class="step-desc">See exactly what each scene will look like. Replace any image with your own photo or request a different AI scene.</div>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 04</div>
+        <div class="step-icon">⚡</div>
+        <div class="step-title">Generate Video</div>
+        <div class="step-desc">Approve and the platform renders all clips, adds your voiceover, and stitches everything into one finished video.</div>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">STEP 05</div>
+        <div class="step-icon">⬇️</div>
+        <div class="step-title">Download & Share</div>
+        <div class="step-desc">Your finished MP4 is ready to download. Post directly to YouTube, LinkedIn, Instagram, or your website.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner fade-up">
+    <div class="section-badge">Pricing</div>
+    <h2 class="section-title">Simple, transparent pricing.<br>No surprises.</h2>
+    <p class="section-sub">Choose monthly for flexibility or annual for maximum savings. Every plan includes a free 30-second video to experience the platform.</p>
+
+    <div class="pricing-toggle">
+      <span class="toggle-label active" id="monthly-label">Monthly</span>
+      <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()"></div>
+      <span class="toggle-label" id="annual-label">Annual</span>
+      <span class="save-badge" id="save-badge" style="display:none">Save 20%</span>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- STARTER -->
+      <div class="plan-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-desc">Perfect for individuals and small teams starting with AI video.</div>
+        <div class="plan-price"><sup>$</sup><span id="starter-price">49</span><span id="starter-period">/mo</span></div>
+        <div class="plan-annual" id="starter-annual"></div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">15 videos per month</div>
+          <div class="plan-feature">Cinematic AI video</div>
+          <div class="plan-feature">AI Avatar video</div>
+          <div class="plan-feature">Script generation</div>
+          <div class="plan-feature">Professional voiceover</div>
+          <div class="plan-feature">Brand logo watermark</div>
+          <div class="plan-feature">Video library</div>
+          <div class="plan-feature extra">Extra video: $5.50 each</div>
+        </div>
+        <button class="plan-btn plan-btn-outline" onclick="document.getElementById('pilot').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        <div class="plan-trial"><span>✓</span> Includes 1 free 30-second video</div>
+      </div>
+
+      <!-- PRO -->
+      <div class="plan-card featured">
+        <div class="plan-popular">⭐ Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-desc">For marketers and content teams who need consistent video output.</div>
+        <div class="plan-price"><sup>$</sup><span id="pro-price">99</span><span id="pro-period">/mo</span></div>
+        <div class="plan-annual" id="pro-annual"></div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">35 videos per month</div>
+          <div class="plan-feature">All video types</div>
+          <div class="plan-feature">Multi-brand support</div>
+          <div class="plan-feature">Custom scene photos</div>
+          <div class="plan-feature">Text overlay editor</div>
+          <div class="plan-feature">Analytics dashboard</div>
+          <div class="plan-feature">Priority support</div>
+          <div class="plan-feature extra">Extra video: $4.50 each</div>
+        </div>
+        <button class="plan-btn plan-btn-filled" onclick="document.getElementById('pilot').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        <div class="plan-trial"><span>✓</span> Includes 1 free 30-second video</div>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="plan-card">
+        <div class="plan-name">Business</div>
+        <div class="plan-desc">For agencies and businesses producing videos at scale.</div>
+        <div class="plan-price"><sup>$</sup><span id="biz-price">199</span><span id="biz-period">/mo</span></div>
+        <div class="plan-annual" id="biz-annual"></div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">80 videos per month</div>
+          <div class="plan-feature">All video types</div>
+          <div class="plan-feature">Unlimited brands</div>
+          <div class="plan-feature">White label option</div>
+          <div class="plan-feature">API access</div>
+          <div class="plan-feature">Custom branding</div>
+          <div class="plan-feature">Dedicated support</div>
+          <div class="plan-feature extra">Extra video: $3.50 each</div>
+        </div>
+        <button class="plan-btn plan-btn-outline" onclick="document.getElementById('pilot').scrollIntoView({behavior:'smooth'})">Get Started</button>
+        <div class="plan-trial"><span>✓</span> Includes 1 free 30-second video</div>
+      </div>
+    </div>
+
+    <!-- FREE TRIAL -->
+    <div class="trial-bar">
+      <div class="trial-title">🎁 Every Plan Starts With 1 Free Video</div>
+      <div class="trial-sub">Create your account, add your payment method, and get one free 30-second professional video — no charge until you love the result.</div>
+      <div class="trial-features">
+        <div class="trial-feat">30-second cinematic video</div>
+        <div class="trial-feat">Professional AI voiceover</div>
+        <div class="trial-feat">Full platform access</div>
+        <div class="trial-feat">No charge if you cancel</div>
+      </div>
+      <a href="#pilot" class="btn-primary" style="display:inline-flex;">⚡ Claim Your Free Video</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner fade-up">
+    <div class="section-badge">About EnerStudio</div>
+    <h2 class="section-title">Built by people who needed<br>exactly this platform.</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>EnerStudio was born out of a real problem. Creating professional marketing videos for multiple brands required expensive agencies, complex software, and weeks of production time. The tools that existed either produced low-quality results, required manual effort between platforms, or cost thousands per video.</p>
+        <p>We built EnerStudio to change that. A single platform that takes a text description and returns a finished professional video — script written, scenes generated, voiceover recorded, and everything stitched together automatically.</p>
+        <p>Our platform is trusted by energy companies, training organizations, and service businesses across Canada and internationally. We are expanding globally because professional video should not require a production team or a large budget.</p>
+        <p>EnerStudio is the only AI video platform that combines cinematic scene generation, professional voiceover, brand management, and multi-video-type production in a single subscription.</p>
+        <div class="about-values">
+          <div class="about-value">
+            <div class="about-value-title">🌍 Built for Global Use</div>
+            <div class="about-value-desc">29 languages supported. Used in 40+ countries. Any industry, any size.</div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-title">🔒 Your Content is Yours</div>
+            <div class="about-value-desc">Full commercial rights on all videos. No watermarks on paid plans.</div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-title">⚡ Always Improving</div>
+            <div class="about-value-desc">New video types and features added regularly. Whiteboard and Cartoon coming soon.</div>
+          </div>
+          <div class="about-value">
+            <div class="about-value-title">💬 Real Support</div>
+            <div class="about-value-desc">AI support agent plus a real technical team. Response within 24 hours.</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div style="font-size:48px;margin-bottom:1rem;">🎬</div>
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;">EnerStudio.io</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem;">AI Video Production Platform</div>
+        <div class="about-stat-grid">
+          <div class="about-stat"><div class="about-stat-num">5+</div><div class="about-stat-label">Video Types</div></div>
+          <div class="about-stat"><div class="about-stat-num">29</div><div class="about-stat-label">Languages</div></div>
+          <div class="about-stat"><div class="about-stat-num">2k+</div><div class="about-stat-label">AI Voices</div></div>
+          <div class="about-stat"><div class="about-stat-num">1200+</div><div class="about-stat-label">AI Avatars</div></div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:10px;">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Currently accepting</div>
+          <div style="font-size:15px;font-weight:600;color:var(--accent);">Pilot Program Applications</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">Limited spots available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT PROGRAM -->
+<section class="pilot-section" id="pilot">
+  <div class="pilot-inner fade-up">
+    <div class="section-badge" style="display:inline-block;">Pilot Program</div>
+    <h2 class="section-title" style="text-align:center;">Join the EnerStudio<br>Pilot Program</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 0;">We are inviting a limited number of businesses to test EnerStudio before public launch. Pilot members get full platform access, priority support, and locked-in pricing for life.</p>
+    <div class="pilot-form">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;">Apply for Pilot Access</div>
+        <div style="font-size:13px;color:var(--muted);">Get your free video + locked pricing + direct access to the founding team</div>
+      </div>
+      <div class="form-row">
+        <input type="text" class="form-input" id="p-name" placeholder="Full Name">
+        <input type="text" class="form-input" id="p-company" placeholder="Company Name">
+      </div>
+      <div class="form-row">
+        <input type="email" class="form-input" id="p-email" placeholder="Business Email">
+        <input type="tel" class="form-input" id="p-phone" placeholder="Phone Number">
+      </div>
+      <select class="form-select" id="p-industry">
+        <option value="">Select Your Industry</option>
+        <option>Solar & Renewable Energy</option>
+        <option>Construction & Real Estate</option>
+        <option>Healthcare & Medical</option>
+        <option>Education & Training</option>
+        <option>Technology & Software</option>
+        <option>Marketing & Advertising</option>
+        <option>Retail & E-Commerce</option>
+        <option>Financial Services</option>
+        <option>Hospitality & Tourism</option>
+        <option>Other</option>
+      </select>
+      <select class="form-select" id="p-plan">
+        <option value="">Which plan interests you?</option>
+        <option>Starter — $49/month (15 videos)</option>
+        <option>Pro — $99/month (35 videos)</option>
+        <option>Business — $199/month (80 videos)</option>
+        <option>Not sure yet</option>
+      </select>
+      <input type="text" class="form-input" id="p-use" placeholder="How will you use EnerStudio? (e.g. social media, training, marketing)" style="margin-bottom:12px;">
+      <button class="form-submit" onclick="submitPilot()">🚀 Apply for Pilot Access — Get 1 Free Video</button>
+      <div id="formResult"></div>
+      <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted);">By applying you agree to our Terms of Service and Privacy Policy. No charge until you choose a plan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--deep);">
+  <div class="section-inner fade-up">
+    <div class="section-badge">FAQ</div>
+    <h2 class="section-title">Common questions.</h2>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is EnerStudio and how does it work? <span>+</span></div><div class="faq-a">EnerStudio is an AI video production platform. You describe your video, the platform writes the script, generates cinematic AI scenes, records professional voiceover, and delivers a finished MP4 video — automatically. No video editing skills required.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What video types are available? <span>+</span></div><div class="faq-a">Cinematic AI video and AI Avatar video are live now. Whiteboard animation and Cartoon animation are coming soon. All video types are included in every plan — you do not pay extra for different types.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does it take to generate a video? <span>+</span></div><div class="faq-a">A 30-second cinematic video takes approximately 5-8 minutes from clicking Generate to download. Script generation takes 15-30 seconds. Scene image generation takes 30 seconds per scene. Video rendering takes 30-90 seconds per clip. Final stitching takes about 60 seconds.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I use EnerStudio for any industry? <span>+</span></div><div class="faq-a">Yes. EnerStudio is a global platform open to any industry — solar, real estate, healthcare, education, technology, hospitality, retail, and more. Simply describe your video in your own words and the AI adapts to your industry and audience.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I own the videos I create? <span>+</span></div><div class="faq-a">Yes. All videos created on paid plans are yours with full commercial rights. You can use them on social media, websites, advertising, training, or any other commercial purpose with no attribution required.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What languages are supported? <span>+</span></div><div class="faq-a">EnerStudio supports 29 languages for voiceover generation including English, French, Spanish, Farsi, German, Portuguese, Japanese, and more. The AI script writing also supports multiple languages.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What happens if I need more videos than my plan includes? <span>+</span></div><div class="faq-a">You can purchase additional videos at the extra video rate for your plan — $5.50 on Starter, $4.50 on Pro, and $3.50 on Business. Or upgrade to a higher plan mid-month for a prorated difference.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does the free trial work? <span>+</span></div><div class="faq-a">When you create your account and add a payment method, you receive one free 30-second video. This gives you the full production experience — script, scene images, voiceover, and finished MP4. You are not charged until your trial video is complete and you choose to continue.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">EnerStudio<span>.</span>io</div>
+        <div class="footer-desc">Professional AI video production platform. Create cinematic videos, avatar presentations, and animated content — all from one platform.</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Platform</div>
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#pilot">Free Trial</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Video Types</div>
+        <a href="#features">Cinematic AI</a>
+        <a href="#features">AI Avatar</a>
+        <a href="#features">Whiteboard (Soon)</a>
+        <a href="#features">Cartoon (Soon)</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#about">About Us</a>
+        <a href="#pilot">Pilot Program</a>
+        <a href="mailto:support@enerstudio.io">Support</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 EnerStudio.io — All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// PIPELINE ANIMATION
+var pipeStates = [
+  {icon:'✍️',label:'Describe',status:'Writing your professional script with <span>AI</span>...'},
+  {icon:'📄',label:'Script',status:'Script ready — generating <span>scene images</span>...'},
+  {icon:'🖼️',label:'Scenes',status:'Scenes approved — rendering <span>cinematic clips</span>...'},
+  {icon:'🎬',label:'Video',status:'Clips rendered — adding <span>professional voiceover</span>...'},
+  {icon:'🎙️',label:'Voice',status:'Voiceover added — <span>stitching final video</span>...'},
+  {icon:'⬇️',label:'Download',status:'Your video is <span>ready to download</span>! 🎉'}
+];
+var currentPipe = 1;
+
+function animatePipeline(){
+  for(var i=0;i<6;i++){
+    var icon=document.getElementById('pi'+i);
+    var labels=document.querySelectorAll('.pipe-label');
+    var arrows=document.querySelectorAll('.pipe-arrow');
+    if(!icon)continue;
+    if(i<currentPipe){
+      icon.className='pipe-icon done';
+      if(labels[i])labels[i].className='pipe-label done';
+    }else if(i===currentPipe){
+      icon.className='pipe-icon active';
+      if(labels[i])labels[i].className='pipe-label active';
+    }else{
+      icon.className='pipe-icon';
+      if(labels[i])labels[i].className='pipe-label';
+    }
+  }
+  document.querySelectorAll('.pipe-arrow').forEach(function(a,i){
+    a.className=i<currentPipe?'pipe-arrow done':'pipe-arrow';
+  });
+  var status=document.getElementById('pipeStatus');
+  if(status)status.innerHTML=pipeStates[currentPipe].status;
+  currentPipe=(currentPipe+1)%6;
+}
+setInterval(animatePipeline,2500);
+
+// BILLING TOGGLE
+var isAnnual=false;
+function toggleBilling(){
+  isAnnual=!isAnnual;
+  var toggle=document.getElementById('billingToggle');
+  var mLabel=document.getElementById('monthly-label');
+  var aLabel=document.getElementById('annual-label');
+  var saveBadge=document.getElementById('save-badge');
+  toggle.className='toggle-switch'+(isAnnual?' annual':'');
+  mLabel.className='toggle-label'+(isAnnual?'':' active');
+  aLabel.className='toggle-label'+(isAnnual?' active':'');
+  saveBadge.style.display=isAnnual?'inline-block':'none';
+
+  if(isAnnual){
+    document.getElementById('starter-price').textContent='39';
+    document.getElementById('pro-price').textContent='79';
+    document.getElementById('biz-price').textContent='159';
+    document.getElementById('starter-annual').textContent='Billed $468/year — Save $120';
+    document.getElementById('pro-annual').textContent='Billed $948/year — Save $240';
+    document.getElementById('biz-annual').textContent='Billed $1,908/year — Save $480';
+  }else{
+    document.getElementById('starter-price').textContent='49';
+    document.getElementById('pro-price').textContent='99';
+    document.getElementById('biz-price').textContent='199';
+    document.getElementById('starter-annual').textContent='';
+    document.getElementById('pro-annual').textContent='';
+    document.getElementById('biz-annual').textContent='';
+  }
+}
+
+// FAQ
+function toggleFaq(el){
+  var answer=el.nextElementSibling;
+  var icon=el.querySelector('span');
+  var isOpen=answer.style.display==='block';
+  answer.style.display=isOpen?'none':'block';
+  icon.style.transform=isOpen?'':'rotate(45deg)';
+}
+
+// PILOT FORM
+function submitPilot(){
+  var name=document.getElementById('p-name').value.trim();
+  var company=document.getElementById('p-company').value.trim();
+  var email=document.getElementById('p-email').value.trim();
+  var industry=document.getElementById('p-industry').value;
+  var result=document.getElementById('formResult');
+
+  if(!name||!email||!company||!industry){
+    result.style.display='block';
+    result.style.background='rgba(248,113,113,0.1)';
+    result.style.border='1px solid rgba(248,113,113,0.3)';
+    result.style.color='#f87171';
+    result.style.padding='12px';
+    result.style.borderRadius='8px';
+    result.style.marginTop='12px';
+    result.textContent='Please fill in your name, company, email, and industry to apply.';
+    return;
+  }
+
+  result.style.display='block';
+  result.style.background='rgba(52,211,153,0.1)';
+  result.style.border='1px solid rgba(52,211,153,0.3)';
+  result.style.color='#34d399';
+  result.style.padding='16px';
+  result.style.borderRadius='8px';
+  result.style.marginTop='12px';
+  result.style.lineHeight='1.6';
+  result.innerHTML='✅ <strong>Application received, '+name+'!</strong><br>We will contact you at <strong>'+email+'</strong> within 24 hours with your pilot access details and free video instructions.<br><br>Reference: #ES-PILOT-'+Date.now().toString().slice(-6);
+
+  // Clear form
+  ['p-name','p-company','p-email','p-phone','p-use'].forEach(function(id){
+    document.getElementById(id).value='';
+  });
+}
+
+// SCROLL ANIMATIONS
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting)e.target.classList.add('visible');
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(function(el){observer.observe(el);});
+
+// SMOOTH NAV
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=this.getAttribute('href');
+    if(id==='#')return;
+    var target=document.querySelector(id);
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
