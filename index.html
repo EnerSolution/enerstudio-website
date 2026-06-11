@@ -106,15 +106,18 @@ section{padding:100px 2rem;}
 .how-wrap{background:var(--dark);}
 .how-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:3rem;position:relative;}
 .how-grid::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,rgba(124,106,255,0.4),rgba(124,106,255,0.4),rgba(45,216,138,0.4),transparent);}
-.how-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 10px;opacity:0;transform:translateY(20px);transition:opacity 0.5s ease, transform 0.5s ease;}
+.how-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 10px;opacity:0;transform:translateY(28px);transition:opacity 0.6s ease, transform 0.6s ease;}
 .how-step.show{opacity:1;transform:translateY(0);}
-.how-step:nth-child(1){transition-delay:0.1s;}
-.how-step:nth-child(2){transition-delay:0.25s;}
-.how-step:nth-child(3){transition-delay:0.4s;}
-.how-step:nth-child(4){transition-delay:0.55s;}
-.how-step:nth-child(5){transition-delay:0.7s;}
-.how-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:1rem;border:2px solid var(--p);background:var(--card);transition:all 0.3s;position:relative;z-index:1;}
+.how-step:nth-child(1){transition-delay:0.15s;}
+.how-step:nth-child(2){transition-delay:0.45s;}
+.how-step:nth-child(3){transition-delay:0.75s;}
+.how-step:nth-child(4){transition-delay:1.05s;}
+.how-step:nth-child(5){transition-delay:1.35s;}
+.how-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:1rem;border:2px solid var(--p);background:var(--card);transition:all 0.4s;position:relative;z-index:1;}
 .how-step:last-child .how-icon{border-color:var(--gr);background:rgba(45,216,138,0.08);}
+.how-step.active .how-icon{background:rgba(124,106,255,0.3);box-shadow:0 0 32px rgba(124,106,255,0.6);transform:scale(1.12);border-color:var(--ac);}
+.how-step.active:last-child .how-icon{background:rgba(45,216,138,0.25);box-shadow:0 0 32px rgba(45,216,138,0.6);border-color:var(--gr);}
+.how-step.active .how-t{color:var(--ac);}
 .how-step:hover .how-icon{background:rgba(124,106,255,0.15);box-shadow:0 0 24px rgba(124,106,255,0.35);}
 .how-n{font-size:10px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
 .how-t{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:-0.3px;margin-bottom:6px;}
@@ -383,50 +386,56 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
     <h2 class="s-h">Professional AI videos.<br>Any industry.</h2>
     <p class="s-p">Sample videos below demonstrate cinematic AI video quality. Your EnerStudio-generated videos will replace these in your library.</p>
     <div class="showcase-grid">
-      <div class="sc-card" onclick="playVid(this)">
-        <video class="sc-vid" muted playsinline preload="none" poster="https://images.pexels.com/photos/9875441/pexels-photo-9875441.jpeg?auto=compress&cs=tinysrgb&w=800" data-src="https://videos.pexels.com/video-files/9565484/9565484-hd_1920_1080_25fps.mp4"></video>
-        <div class="sc-badge">Solar Energy</div>
+      <!-- Official Runway Gen-3 launch film -->
+      <div class="sc-card" onclick="playYT(this,'nByslCkykj8')">
+        <img class="sc-vid" src="https://img.youtube.com/vi/nByslCkykj8/hqdefault.jpg" alt="Cinematic AI showcase">
+        <div class="sc-badge">Cinematic AI</div>
         <div class="sc-overlay"></div>
         <div class="sc-play">▶</div>
-        <div class="sc-info"><div class="sc-title">Solar Enrollment Campaign</div><div class="sc-meta">30 sec · Cinematic AI · Voiceover</div></div>
+        <div class="sc-info"><div class="sc-title">Cinematic AI Showcase</div><div class="sc-meta">EnerStudio Cinema Engine · Full sound</div></div>
       </div>
-      <div class="sc-card" onclick="playVid(this)">
-        <video class="sc-vid" muted playsinline preload="none" poster="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800" data-src="https://videos.pexels.com/video-files/3194903/3194903-hd_1920_1080_30fps.mp4"></video>
-        <div class="sc-badge">Corporate</div>
+      <!-- Runway Academy image-to-video -->
+      <div class="sc-card" onclick="playYT(this,'JkPO-mBV9bQ')">
+        <img class="sc-vid" src="https://img.youtube.com/vi/JkPO-mBV9bQ/hqdefault.jpg" alt="Image to video showcase">
+        <div class="sc-badge">Image to Video</div>
         <div class="sc-overlay"></div>
         <div class="sc-play">▶</div>
-        <div class="sc-info"><div class="sc-title">Corporate Training Video</div><div class="sc-meta">60 sec · AI Avatar · 29 Languages</div></div>
+        <div class="sc-info"><div class="sc-title">Photo-to-Video Production</div><div class="sc-meta">Upload your photo · AI brings it to life</div></div>
       </div>
-      <div class="sc-card" onclick="playVid(this)">
-        <video class="sc-vid" muted playsinline preload="none" poster="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=800" data-src="https://videos.pexels.com/video-files/2098988/2098988-hd_1920_1080_30fps.mp4"></video>
-        <div class="sc-badge">Real Estate</div>
+      <!-- HeyGen avatar demo -->
+      <div class="sc-card" onclick="playYT(this,'oM_wcCJzhe4')">
+        <img class="sc-vid" src="https://img.youtube.com/vi/oM_wcCJzhe4/hqdefault.jpg" alt="AI Avatar presenter">
+        <div class="sc-badge">AI Avatar</div>
         <div class="sc-overlay"></div>
         <div class="sc-play">▶</div>
-        <div class="sc-info"><div class="sc-title">Property Showcase</div><div class="sc-meta">45 sec · Cinematic AI · Brand Logo</div></div>
+        <div class="sc-info"><div class="sc-title">AI Avatar Presenter</div><div class="sc-meta">1,200+ presenters · 29 languages</div></div>
       </div>
-      <div class="sc-card" onclick="playVid(this)">
-        <video class="sc-vid" muted playsinline preload="none" poster="https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=800" data-src="https://videos.pexels.com/video-files/4098816/4098816-hd_1920_1080_25fps.mp4"></video>
-        <div class="sc-badge">Healthcare</div>
+      <!-- Kling cinematic demo -->
+      <div class="sc-card" onclick="playYT(this,'I4y_O8XYJM4')">
+        <img class="sc-vid" src="https://img.youtube.com/vi/I4y_O8XYJM4/hqdefault.jpg" alt="Cinematic generation">
+        <div class="sc-badge">Cinematic AI</div>
         <div class="sc-overlay"></div>
         <div class="sc-play">▶</div>
-        <div class="sc-info"><div class="sc-title">Clinic Services Overview</div><div class="sc-meta">30 sec · AI Avatar · English/French</div></div>
+        <div class="sc-info"><div class="sc-title">Director-Grade Generation</div><div class="sc-meta">Camera moves · Lighting · Realism</div></div>
       </div>
-      <div class="sc-card" onclick="playVid(this)">
-        <video class="sc-vid" muted playsinline preload="none" poster="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800" data-src="https://videos.pexels.com/video-files/3945168/3945168-hd_1920_1080_25fps.mp4"></video>
-        <div class="sc-badge">Technology</div>
+      <!-- HeyGen AI clone -->
+      <div class="sc-card" onclick="playYT(this,'xHZ3kfzP6YY')">
+        <img class="sc-vid" src="https://img.youtube.com/vi/xHZ3kfzP6YY/hqdefault.jpg" alt="Custom avatar">
+        <div class="sc-badge">Custom Avatar</div>
         <div class="sc-overlay"></div>
         <div class="sc-play">▶</div>
-        <div class="sc-info"><div class="sc-title">SaaS Product Launch</div><div class="sc-meta">60 sec · Cinematic AI · Custom Logo</div></div>
+        <div class="sc-info"><div class="sc-title">Your Own Digital Presenter</div><div class="sc-meta">Create an avatar from one photo</div></div>
       </div>
-      <div class="sc-card" onclick="playVid(this)">
-        <video class="sc-vid" muted playsinline preload="none" poster="https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=800" data-src="https://videos.pexels.com/video-files/9319506/9319506-hd_1920_1080_24fps.mp4"></video>
-        <div class="sc-badge">Energy</div>
+      <!-- Runway cinematic tutorial -->
+      <div class="sc-card" onclick="playYT(this,'gyCg0yv3Njw')">
+        <img class="sc-vid" src="https://img.youtube.com/vi/gyCg0yv3Njw/hqdefault.jpg" alt="Cinematic quality">
+        <div class="sc-badge">Cinematic AI</div>
         <div class="sc-overlay"></div>
         <div class="sc-play">▶</div>
-        <div class="sc-info"><div class="sc-title">Energy Audit Explainer</div><div class="sc-meta">45 sec · Cinematic AI · Voiceover</div></div>
+        <div class="sc-info"><div class="sc-title">Cinematic Quality Output</div><div class="sc-meta">Drone shots · Close-ups · Establishing</div></div>
       </div>
     </div>
-    <p style="text-align:center;margin-top:1.5rem;font-size:13px;color:var(--muted);">Videos are sample placeholders. Your EnerStudio-generated videos replace these. <a href="#pilot" style="color:var(--ac);text-decoration:none;font-weight:600;">Create yours free →</a></p>
+    <p style="text-align:center;margin-top:1.5rem;font-size:13px;color:var(--muted);">Professional samples produced with the same AI engines that power EnerStudio. <a href="#pilot" style="color:var(--ac);text-decoration:none;font-weight:600;">Create yours free →</a></p>
   </div>
 </section>
 
@@ -440,34 +449,34 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
     </div>
     <div class="how-grid" id="howGrid">
       <div class="how-step">
-        <div class="how-icon">✍️</div>
+        <div class="how-icon">🎯</div>
         <div class="how-n">Step 01</div>
-        <div class="how-t">Describe</div>
-        <div class="how-d">Tell the platform what your video is about in plain language.</div>
+        <div class="how-t">Choose & Describe</div>
+        <div class="how-d">Pick your video type — Cinematic, Avatar, Whiteboard, Cartoon, or Motion — and describe your video in plain words.</div>
       </div>
       <div class="how-step">
         <div class="how-icon">📄</div>
         <div class="how-n">Step 02</div>
         <div class="how-t">Review Script</div>
-        <div class="how-d">AI writes your voiceover. Edit freely. Approve when ready.</div>
+        <div class="how-d">AI writes a professional voiceover script timed to your duration. Edit freely, approve when ready.</div>
       </div>
       <div class="how-step">
         <div class="how-icon">🖼️</div>
         <div class="how-n">Step 03</div>
-        <div class="how-t">Approve Scenes</div>
-        <div class="how-d">See every scene before rendering. Replace any you don't like.</div>
+        <div class="how-t">Preview & Customize</div>
+        <div class="how-d">Review scenes, choose your presenter, or pick your animation style — depending on your video type. Replace anything.</div>
       </div>
       <div class="how-step">
         <div class="how-icon">⚡</div>
         <div class="how-n">Step 04</div>
         <div class="how-t">Generate</div>
-        <div class="how-d">Clips render, voiceover added, everything stitched automatically.</div>
+        <div class="how-d">Visuals render, voiceover is recorded, your brand logo is applied, and everything is stitched automatically.</div>
       </div>
       <div class="how-step">
         <div class="how-icon">⬇️</div>
         <div class="how-n">Step 05</div>
-        <div class="how-t">Download</div>
-        <div class="how-d">Your finished MP4 is ready. Post anywhere instantly.</div>
+        <div class="how-t">Download & Share</div>
+        <div class="how-d">Your finished MP4 lands in your library. Post anywhere instantly — full commercial rights.</div>
       </div>
     </div>
   </div>
@@ -504,10 +513,10 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
     <h2 class="s-h">Transparent pricing.<br>No surprises.</h2>
     <p class="s-p">Monthly for flexibility. Annual for maximum savings. Every plan includes a free 30-second video.</p>
     <div class="billing-row">
-      <span class="sw-lbl on" id="lbl-m" onclick="setB(false)">Monthly</span>
-      <div class="sw-track off" id="swT" onclick="setB(!isAnn)"><div class="sw-thumb"></div></div>
-      <span class="sw-lbl" id="lbl-a" onclick="setB(true)">Annual</span>
-      <span class="save-pill" id="savePill">Save 20%</span>
+      <span class="sw-lbl" id="lbl-m" onclick="setB(false)">Monthly</span>
+      <div class="sw-track" id="swT" onclick="setB(!isAnn)"><div class="sw-thumb"></div></div>
+      <span class="sw-lbl on" id="lbl-a" onclick="setB(true)">Annual</span>
+      <span class="save-pill" id="savePill" style="display:inline-block;">Save 20%</span>
     </div>
     <div class="price-grid">
       <div class="pc">
@@ -526,7 +535,6 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
           <div class="pc-feat">Video library</div>
           <div class="pc-extra">Extra Cinematic/Avatar: $5.50</div>
           <div class="pc-extra">Extra Whiteboard/Cartoon: $1.50</div>
-          <div class="pc-refresh">Plan Refresh: $49</div>
         </div>
         <button class="pc-btn pc-out" onclick="scrollTo('pilot')">Get Started</button>
         <div class="pc-trial">Includes <em>1 free 30-second video</em></div>
@@ -549,7 +557,6 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
           <div class="pc-feat">Priority support</div>
           <div class="pc-extra">Extra Cinematic/Avatar: $4.50</div>
           <div class="pc-extra">Extra Whiteboard/Cartoon: $1.00</div>
-          <div class="pc-refresh">Plan Refresh: $99</div>
         </div>
         <button class="pc-btn pc-fill" onclick="scrollTo('pilot')">Get Started</button>
         <div class="pc-trial">Includes <em>1 free 30-second video</em></div>
@@ -571,12 +578,20 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
           <div class="pc-feat">Dedicated support</div>
           <div class="pc-extra">Extra Cinematic/Avatar: $3.50</div>
           <div class="pc-extra">Extra Whiteboard/Cartoon: $0.75</div>
-          <div class="pc-refresh">Plan Refresh: $199</div>
         </div>
         <button class="pc-btn pc-out" onclick="scrollTo('pilot')">Get Started</button>
         <div class="pc-trial">Includes <em>1 free 30-second video</em></div>
       </div>
     </div>
+    <!-- PLAN REFRESH NOTE -->
+    <div style="background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:1.25rem 1.5rem;margin-top:1.5rem;display:flex;align-items:flex-start;gap:14px;">
+      <div style="font-size:22px;flex-shrink:0;">🔄</div>
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px;">Plan Refresh — never wait for next month</div>
+        <div style="font-size:13px;color:var(--grey);line-height:1.7;">Used all your videos before month end? Pay your monthly plan fee again to instantly reset your full video allocation — Starter $49 · Pro $99 · Business $199. Works on monthly and annual plans, unlimited refreshes.</div>
+      </div>
+    </div>
+
     <div class="free-banner">
       <h3>🎁 Every Plan Starts With 1 Free Video</h3>
       <p>Create your account, add your payment method, and get one free 30-second professional video — no charge until you love the result.</p>
@@ -706,7 +721,7 @@ footer{background:var(--dark);border-top:1px solid var(--bdr);padding:60px 2rem 
 
 <script>
 // PRICING TOGGLE
-var isAnn = false;
+var isAnn = true; // default annual
 function setB(ann){
   isAnn = ann;
   document.getElementById('swT').className = 'sw-track'+(ann?'':' off');
@@ -728,41 +743,22 @@ function setB(ann){
   }
 }
 
-// VIDEO PLAYER — lazy load
-var currentVid = null;
-function playVid(card){
-  var vid = card.querySelector('.sc-vid');
-  var play = card.querySelector('.sc-play');
-  if(!vid) return;
-  if(currentVid && currentVid !== vid){
-    currentVid.pause(); currentVid.currentTime=0;
-    var pc = currentVid.closest('.sc-card');
-    if(pc){ var pp=pc.querySelector('.sc-play'); if(pp){pp.textContent='▶';pp.classList.remove('playing');} }
-  }
-  if(vid.paused){
-    if(!vid.src || vid.src===window.location.href){
-      var s=vid.getAttribute('data-src');
-      if(s) vid.src=s;
-    }
-    play.textContent='⏳';
-    vid.play().then(function(){
-      play.textContent='⏸'; play.classList.add('playing'); currentVid=vid;
-    }).catch(function(){
-      play.textContent='▶';
-      toast('Video loading — please try again in a moment');
-    });
-  }else{
-    vid.pause(); vid.currentTime=0;
-    play.textContent='▶'; play.classList.remove('playing'); currentVid=null;
-  }
+// YOUTUBE VIDEO PLAYER — swaps thumbnail for embedded player with sound
+function playYT(card, videoId){
+  // If already playing, do nothing (let YouTube controls handle it)
+  if(card.querySelector('iframe')) return;
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0&modestbranding=1';
+  iframe.style.cssText = 'width:100%;height:100%;border:0;position:absolute;inset:0;';
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+  iframe.allowFullscreen = true;
+  // Hide overlay elements
+  var play = card.querySelector('.sc-play'); if(play) play.style.display='none';
+  var ov = card.querySelector('.sc-overlay'); if(ov) ov.style.display='none';
+  var info = card.querySelector('.sc-info'); if(info) info.style.display='none';
+  card.style.position = 'relative';
+  card.appendChild(iframe);
 }
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.sc-vid').forEach(function(v){
-    v.addEventListener('ended',function(){
-      var c=v.closest('.sc-card'); if(c){var p=c.querySelector('.sc-play');if(p){p.textContent='▶';p.classList.remove('playing');}} currentVid=null;
-    });
-  });
-});
 
 // FAQ
 function toggleFaq(btn){
@@ -800,16 +796,35 @@ var ro=new IntersectionObserver(function(entries){
 },{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
 
-// HOW IT WORKS ANIMATION — trigger when section visible
+// HOW IT WORKS ANIMATION — sequential reveal, then highlight passes step to step
+var howAnimStarted = false;
 var howObserver=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
-    if(e.isIntersecting){
-      document.querySelectorAll('.how-step').forEach(function(s){s.classList.add('show');});
+    if(e.isIntersecting && !howAnimStarted){
+      howAnimStarted = true;
+      var steps = document.querySelectorAll('.how-step');
+      steps.forEach(function(s){s.classList.add('show');});
+      // After reveal completes, cycle the active highlight through steps forever
+      setTimeout(function(){
+        var idx = 0;
+        steps[0].classList.add('active');
+        setInterval(function(){
+          steps[idx].classList.remove('active');
+          idx = (idx + 1) % steps.length;
+          steps[idx].classList.add('active');
+        }, 1600);
+      }, 1800);
     }
   });
-},{threshold:0.2});
+},{threshold:0.25});
 var howGrid=document.getElementById('howGrid');
 if(howGrid) howObserver.observe(howGrid);
+// Fallback: force reveal after 4s even if observer fails
+setTimeout(function(){
+  if(!howAnimStarted){
+    document.querySelectorAll('.how-step').forEach(function(s){s.classList.add('show');});
+  }
+}, 4000);
 
 // SMOOTH NAV
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
@@ -818,6 +833,9 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
 });
+
+// APPLY DEFAULT ANNUAL PRICING ON LOAD
+setB(true);
 
 // TOAST
 function toast(msg){
