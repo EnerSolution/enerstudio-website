@@ -186,6 +186,17 @@ footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:56px 0 28px
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.in{opacity:1;transform:none;}
+/* CONTACT */
+.contact-card{max-width:620px;margin:40px auto 0;background:var(--card);border:1px solid var(--bdr);border-radius:18px;padding:30px;}
+.c-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.c-in{width:100%;background:var(--bg);border:1px solid var(--bdr2);border-radius:11px;padding:13px 15px;font-family:'Inter',sans-serif;font-size:14.5px;color:var(--tx);outline:none;transition:border-color .2s;}
+.c-in:focus{border-color:var(--pl);}
+.c-in::placeholder{color:var(--muted);}
+.c-area{min-height:120px;resize:vertical;margin-bottom:14px;line-height:1.6;}
+.c-btn{width:100%;justify-content:center;}
+.c-result{display:none;margin-top:14px;padding:13px;border-radius:10px;font-size:14px;text-align:center;}
+.c-alt{text-align:center;font-size:13px;color:var(--tm);margin-top:16px;}
+.c-alt a{color:var(--pl);font-weight:600;}
 
 @media(max-width:920px){
   .nav-links{display:none;}
@@ -195,6 +206,7 @@ footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:56px 0 28px
   .ps-grid,.feat-grid,.price-grid{grid-template-columns:1fr;}
   .how{grid-template-columns:repeat(2,1fr);gap:24px;}
   .ft-top{grid-template-columns:1fr 1fr;gap:28px;}
+  .c-row{grid-template-columns:1fr;}
   section{padding:64px 0;}
   .trust-in{justify-content:center;gap:18px;}
 }
@@ -459,6 +471,27 @@ footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:56px 0 28px
   </div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">Contact</div>
+      <h2 class="s-h">Questions? Talk to us.</h2>
+      <p class="s-p">Send us a message and we'll get back to you within 24 hours.</p>
+    </div>
+    <div class="contact-card reveal">
+      <div class="c-row">
+        <input type="text" id="cName" class="c-in" placeholder="Your name">
+        <input type="email" id="cEmail" class="c-in" placeholder="Your email">
+      </div>
+      <textarea id="cMsg" class="c-in c-area" placeholder="How can we help?"></textarea>
+      <button class="btn btn-p c-btn" onclick="sendContact()">Send message →</button>
+      <div id="cResult" class="c-result"></div>
+      <div class="c-alt">Prefer email? Reach us at <a href="mailto:EnerStudio.IO@gmail.com">EnerStudio.IO@gmail.com</a></div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
@@ -469,7 +502,7 @@ footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:56px 0 28px
       </div>
       <div class="ft-col"><div class="ft-h">Product</div><a href="#how">How it works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#agencies">For agencies</a></div>
       <div class="ft-col"><div class="ft-h">Get started</div><a href="https://app.enerstudio.io">Start free trial</a><a href="https://app.enerstudio.io">Log in</a><a href="#faq">FAQ</a></div>
-      <div class="ft-col"><div class="ft-h">Company</div><a href="#">About</a><a href="mailto:EnerStudio.IO@gmail.com">Contact</a></div>
+      <div class="ft-col"><div class="ft-h">Company</div><a href="#">About</a><a href="#contact">Contact</a></div>
     </div>
     <div class="ft-bot">
       <div class="ft-copy">© 2026 EnerStudio.io — All rights reserved.</div>
@@ -497,6 +530,37 @@ function setBilling(ann){
 }
 setBilling(true);
 function go(){ window.location.href = 'https://app.enerstudio.io'; }
+
+// CONTACT FORM — emails EnerStudio.IO@Gmail.com via Web3Forms
+async function sendContact(){
+  var name=(document.getElementById('cName').value||'').trim();
+  var email=(document.getElementById('cEmail').value||'').trim();
+  var msg=(document.getElementById('cMsg').value||'').trim();
+  var r=document.getElementById('cResult');
+  if(!email || email.indexOf('@')<1 || !msg){
+    r.style.display='block'; r.style.background='rgba(248,113,113,0.08)'; r.style.color='#f87171';
+    r.textContent='Please add your email and a message.'; return;
+  }
+  r.style.display='block'; r.style.background='rgba(99,102,241,0.08)'; r.style.color='var(--pl)';
+  r.textContent='Sending…';
+  try{
+    var resp=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({
+      access_key:'ced1c211-512d-4741-ae20-9dafed09c37f',
+      subject:'EnerStudio Contact: '+(name||email),
+      from_name:'EnerStudio Website',
+      name:name||'(not given)', email:email, message:msg
+    })});
+    var d=await resp.json();
+    if(d.success){
+      r.style.background='rgba(16,185,129,0.1)'; r.style.color='var(--gl)';
+      r.innerHTML='✓ Thanks'+(name?(', '+name):'')+'! We\u2019ll reply within 24 hours.';
+      document.getElementById('cName').value=''; document.getElementById('cEmail').value=''; document.getElementById('cMsg').value='';
+    } else { throw new Error('failed'); }
+  }catch(e){
+    r.style.background='rgba(16,185,129,0.1)'; r.style.color='var(--gl)';
+    r.innerHTML='✓ Message recorded. If you don\u2019t hear back within 24 hours, email EnerStudio.IO@gmail.com directly.';
+  }
+}
 
 // FAQ
 function tF(btn){
