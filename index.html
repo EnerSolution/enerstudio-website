@@ -625,6 +625,25 @@ document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
   a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});
 });
+
+// HERO VIDEO AUDIO — never let the promo's sound keep playing after the visitor leaves or hides the page.
+// (If they unmute it and then click "Start free trial"/"Log in" or switch tabs, the audio must stop.)
+(function(){
+  var hv = document.querySelector('.demo-out video');
+  if(!hv) return;
+  function stopHero(){ try{ hv.pause(); hv.muted = true; }catch(e){} }
+  // Leaving the page (any navigation, incl. the app links) or the tab going to background.
+  window.addEventListener('pagehide', stopHero);
+  window.addEventListener('beforeunload', stopHero);
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ stopHero(); }
+    else { try{ hv.play(); }catch(e){} }   // coming back → resume the muted loop
+  });
+  // Belt-and-suspenders: pause the moment any link to the app is clicked, before it navigates.
+  document.querySelectorAll('a[href^="https://app.enerstudio.io"]').forEach(function(a){
+    a.addEventListener('click', stopHero);
+  });
+})();
 </script>
 </body>
 </html>
